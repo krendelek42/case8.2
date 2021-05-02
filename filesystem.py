@@ -13,9 +13,8 @@ def acceptCommand():
         num = input('Выберите пункт меню: ')
         try:
             num = int(num)
-            a = True
             if num <= 7 and num >= 1:
-                True
+                a = True
             else:
                 a = False
             if a == False:
@@ -98,8 +97,8 @@ def runCommand(command):
                 dir.append(item.name)
             if item.is_file():
                 files.append(item.name)
-        print('Папки: ', dir)
-        print('Файлы: ', files)
+        print('Папки: ', *dir)
+        print('Файлы: ', *files)
         print()
 
     if command == 2:
