@@ -1,10 +1,13 @@
 import os
 
-from glob import glob
 path = 'C:\НГУ'
 os.chdir(path)
 
-def acceptCommand(): # эта доделана
+def acceptCommand():
+    '''
+    :return: Requests the command number and if the command number is specified incorrectly, displays an error message.
+    Commands are requested until the correct command number is entered. Returns the correct command number.
+    '''
     q = False
     while q != True:
         num = input('Выберите пункт меню: ')
@@ -27,8 +30,12 @@ def acceptCommand(): # эта доделана
     return num
 
 
-
-def moveDown(currentDir):  # эта доделана
+def moveDown(currentDir):
+    '''
+    :param currentDir: directory to be parent
+    :return: Requests the name of a subdirectory. If the name is specified correctly,
+    it makes the directory in currentDir current, otherwise it displays an error message.
+    '''
     a = False
     while a!= True:
         name = input('Введите имя папки, в которую хотите переместиться, или файла, который хотите открыть: ')
@@ -45,19 +52,48 @@ def moveDown(currentDir):  # эта доделана
 
 
 def moveUp():  # эта доделана
+    '''
+    :return: Makes the parent directory current.
+    '''
     path = os.getcwd()
     new_path = os.path.dirname(path)  # parent
     os.chdir(new_path)
 
 
-def runCommand(command): # нужно доделать 4, 5 и 6 пунк. Они делаются на основе функций
+def findFiles(path, target, new_path):
+    '''
+    :param path: The directory in which the required file is searched.
+    :param target: The name of the file to find the path to.
+    :param new_path: Parent directory.
+    :return: A recursive function that generates a list of paths to files that contain target.
+    If the files are not found, displays a corresponding message.
+    '''
+    if os.path.isfile(target) == True:
+        spisok2 = []
+        spisok = os.listdir(path)
+        if len(spisok) != 0:
+            for i in spisok:
+                if os.path.isfile(i) == True and i == target:
+                    print(os.path.join(path, i))
+                spisok2.append(i)
+            return findFiles(os.path.join(path, i), target, new_path)
+        return ''
+    print()
+    print('Данный файл не найден.')
+    return ''
 
+
+def runCommand(command):
+    '''
+    :param command: Command number from the menu list.
+    :return: Determines by the number of the command command which function should be executed.
+    '''
     if command == 1:
         print()
         dir = []
         files = []
-        currentDir = os.getcwd()
-        for item in os.scandir(currentDir):
+        path = os.getcwd()
+        for item in os.scandir(path):
             if item.is_dir():
                 dir.append(item.name)
             if item.is_file():
@@ -66,49 +102,33 @@ def runCommand(command): # нужно доделать 4, 5 и 6 пунк. Он�
         print('Файлы: ', files)
         print()
 
-
     if command == 2:
         print()
         moveUp()
         print()
 
-
     if command == 3:
         print()
-        currentDir = os.getcwd()
-        moveDown(currentDir)
+        path = os.getcwd()
+        moveDown(path)
         print()
-
 
     if command == 4: # тут просто костяк написан
         print()
         path = os.getcwd()
-        print('Количество файлов:', countFiles(path))
+        print('Количество файлов:', 'countFiles(path)')
         print()
-
 
     if command == 6:
         print()
         path = os.getcwd()
-
-        findFiles(path)
-
-def findFiles(path, target = [] ): #это поя последняя 6, пытаюсь ее доделать
-    '''
-    # target - имя файла
-    # path - каталог
-    '''
-    for item in os.scandir(path):
-        if item.is_file():
-            target.append(item.name)
-    print(target)
+        target = input('Введите файл, который хотите найти, с расширением: ')
+        new_path = path
+        print()
+        print(findFiles(path, target, new_path))
+        print()
 
 
-
-
-
-
-# все что зеленое, это я пыталась написать 4 функцию. Вышла фигня, не обращай внимание
 
 '''
 from functools import lru_cache
@@ -138,16 +158,20 @@ def countFiles(path):
 
 
 
-def main(): # эта функция дописана, ее не надо трогать
+def main():
+    '''
+    :return: The main program that prints the path to the current directory and menu.
+    Causes the execution of a command function.
+    '''
     while True:
         print(os.getcwd())
-        print('1. Просмотр каталога', '2. На уровень вверх', '3. На уровень аниз', '4. Количесвто файлов и каталогов',
-              '5. Размер текущего каталога (в байтах)', '6. Поиск файла', '7. Выход из программы', sep='\n')
+        print('','Меню:','1. Просмотр каталога', '2. На уровень вверх', '3. На уровень аниз', '4. Количесвто файлов и каталогов',
+              '5. Размер текущего каталога (в байтах)', '6. Поиск файла', '7. Выход из программы', '', sep='\n')
         command = acceptCommand()
         if command == 'QUIK':
             print()
             print('Работа программы завершена.')
             break
-            print()
+        print()
         runCommand(command)
 main()
