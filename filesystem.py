@@ -93,6 +93,32 @@ def runCommand(command): # нужно доделать 4, 5 и 6 пунк. Он�
 
         findFiles(path)
 
+
+def countFiles(path):
+    if os.path.isfile(path):
+        return 1
+
+    count = 0
+    dir_list = os.listdir(path)
+    for d in dir_list:
+        new_path = path + '\\' + d
+        count += countFiles(new_path)
+
+    return count
+
+
+def countBytes(path):
+    if os.path.isfile(path):
+        return os.path.getsize(path)
+
+    count = 0
+    dir_list = os.listdir(path)
+    for d in dir_list:
+        new_path = path + '\\' + d
+        count += countBytes(new_path)
+
+    return count
+
 def findFiles(path, target = [] ): #это поя последняя 6, пытаюсь ее доделать
     '''
     # target - имя файла
