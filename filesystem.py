@@ -82,6 +82,11 @@ def findFiles(path, target, new_path):
     return ''
 
 def countFiles(path):
+    '''
+    :param path: Used directory.
+    :return: A recursive function that counts the number of files in the specified path.
+    All files in subdirectories are included in the count. Returns the number of files.
+    '''
     if os.path.isfile(path):
         return 1
 
@@ -95,6 +100,11 @@ def countFiles(path):
 
 
 def countBytes(path):
+    '''
+    :param path: Used directory.
+    :return: A recursive function that calculates the total size (in bytes) of all files in the specified path.
+    All files in subdirectories are included in the count. Returns the total number of bytes.
+    '''
     if os.path.isfile(path):
         return os.path.getsize(path)
 
