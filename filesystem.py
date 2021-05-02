@@ -1,7 +1,6 @@
-import os
 
-path = 'C:\НГУ'
-os.chdir(path)
+
+import os
 
 def acceptCommand():
     '''
@@ -151,8 +150,13 @@ def runCommand(command):
     if command == 4:
         print()
         path = os.getcwd()
-        print('Количество файлов:', 'countFiles(path)')
+        print('Количество файлов:', countFiles(path))
         print()
+        
+    if command == 5:
+        print()
+        path = os.getcwd()
+        print('Размер текущего каталога (в байтах): ', countBytes(path))
 
     if command == 6:
         print()
