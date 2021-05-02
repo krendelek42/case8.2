@@ -100,6 +100,18 @@ def countFiles(path):
         count += countFiles(new_path)
 
     return count
+   
+def countDirs(path):
+	   count = 0 
+	   dir_list = os.listdir(path)
+	   for d in dir_list:
+		       new_path = path + '\\' + d		
+		       if os.path.isdir(new_path):
+			           count += 1
+			           count += countDirs(new_path)
+	   return count
+
+
 
 
 def countBytes(path):
@@ -155,12 +167,14 @@ def runCommand(command):
         print()
         path = os.getcwd()
         print('Количество файлов:', countFiles(path))
+        print('Количество папок:', countDirs(path))
         print()
         
     if command == 5:
         print()
         path = os.getcwd()
         print('Размер текущего каталога (в байтах): ', countBytes(path))
+        print()
 
     if command == 6:
         print()
