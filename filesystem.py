@@ -50,7 +50,7 @@ def moveDown(currentDir):
         return os.startfile(new_path)
 
 
-def moveUp():  # эта доделана
+def moveUp():
     '''
     :return: Makes the parent directory current.
     '''
@@ -112,7 +112,7 @@ def runCommand(command):
         moveDown(path)
         print()
 
-    if command == 4: # тут просто костяк написан
+    if command == 4:
         print()
         path = os.getcwd()
         print('Количество файлов:', 'countFiles(path)')
@@ -126,34 +126,6 @@ def runCommand(command):
         print()
         print(findFiles(path, target, new_path))
         print()
-
-
-
-'''
-from functools import lru_cache
-@lru_cache(maxsize=None)
-def countFiles(path):
-    for root, dir, files in os.walk(p)
-'''
-
-
-
-'''
-    if len(spisok) == 0 and path != paths:
-        name = os.path.basename(paths)
-        paths = os.path.dirname(paths)
-        spisok = os.listdir(paths)
-        f = spisok.index(name)
-        return countFiles(path, spisok[f:], paths)
-    if len(spisok) == 0 and path == paths:
-        return 0
-    if os.path.isfile(os.path.join(paths, spisok[0])) != True:
-        paths = os.path.join(paths, spisok[0])
-        spisok = os.listdir(paths)
-        return countFiles(path, spisok, paths)
-    return 1 + countFiles(path, spisok[1:], paths)
-'''
-
 
 
 
