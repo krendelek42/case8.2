@@ -81,7 +81,33 @@ def findFiles(path, target, new_path):
     print('Данный файл не найден.')
     return ''
 
+def countFiles(path):
+    if os.path.isfile(path):
+        return 1
 
+    count = 0
+    dir_list = os.listdir(path)
+    for d in dir_list:
+        new_path = path + '\\' + d
+        count += countFiles(new_path)
+
+    return count
+
+
+def countBytes(path):
+    if os.path.isfile(path):
+        return os.path.getsize(path)
+
+    count = 0
+    dir_list = os.listdir(path)
+    for d in dir_list:
+        new_path = path + '\\' + d
+        count += countBytes(new_path)
+
+    return count
+  
+  
+  
 def runCommand(command):
     '''
     :param command: Command number from the menu list.
@@ -128,8 +154,8 @@ def runCommand(command):
         print()
 
 
-
 def main():
+  
     '''
     :return: The main program that prints the path to the current directory and menu.
     Causes the execution of a command function.
